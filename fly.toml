@@ -3,7 +3,7 @@
 # 2) Create the app once:  fly apps create <app>
 # 3) Deploy with exactly one machine:  fly deploy --ha=false
 
-app = "white-park-change-me"
+app = "white-park"
 primary_region = "nrt"          # Tokyo: the closest Fly.io region to Korea
 
 [env]
