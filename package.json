@@ -1,0 +1,16 @@
+{
+  "name": "white-park-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Realtime server for the White Park 3D ski resort: serves the page and relays players, queues and snow objects.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "ws": "8.18.0"
+  }
+}

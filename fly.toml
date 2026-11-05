@@ -1,0 +1,38 @@
+# Fly.io settings for the White Park realtime server.
+# 1) Change "app" to a name nobody else uses (it becomes https://<app>.fly.dev).
+# 2) Create the app once:  fly apps create <app>
+# 3) Deploy with exactly one machine:  fly deploy --ha=false
+
+app = "white-park-change-me"
+primary_region = "nrt"          # Tokyo: the closest Fly.io region to Korea
+
+[env]
+  PORT = "8080"
+  ROOM_CAP = "40"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  # Everyone has to be on the same machine to see each other, and that machine keeps the
+  # live state in memory, so keep it running instead of letting Fly stop it when idle.
+  auto_stop_machines = "off"
+  auto_start_machines = true
+  min_machines_running = 1
+
+  # Each player holds one long-lived WebSocket connection.
+  [http_service.concurrency]
+    type = "connections"
+    soft_limit = 800
+    hard_limit = 1000
+
+  [[http_service.checks]]
+    grace_period = "10s"
+    interval = "30s"
+    method = "GET"
+    timeout = "5s"
+    path = "/health"
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory = "512mb"
